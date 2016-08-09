@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport"/>
+    <title>在线正则表达式-lzm</title>
+    <meta name="keywords" content="在线正则表达式"/>
+    <meta name="description" content="在线正则表达式">
+    <meta property="qc:admins" content="14002146716252376637571563176"/>
+
+    <script src="http://cdn.bootcss.com/jquery/1.9.1/jquery.min.js"></script>
+    <link href="http://cdn.bootcss.com/bootstrap/3.3.4/css/bootstrap.min.css" rel="stylesheet">
+    <script src="http://cdn.bootcss.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+
+    <style>.list-group-item a {
+        padding-right: 20px
+    }
+
+    #links a {
+        font-size: 13px
+    }
+
+    #desc1 {
+        font-size: 13px;
+    }
+
+    .newFeatureTip {
+        width: 13px;
+        height: 13px;
+        background-repeat: no-repeat;
+        position: absolute;
+        top: 5px;
+        color: red;
+        right: 10px;
+    }
+
+    .newItem {
+        float: left;
+        color: red;
+        position: absolute;
+        margin-top: 2px;
+        margin-left: 8px;
+    }
+
+    .announce {
+        color: red;
+    }
+
+    .nav > {
+        z-index: 99999999;
+    }
+
+    .nav > li:hover .dropdown-menu {
+        display: block;
+        z-index: 99999999;
+    }
+
+    .navbar {
+        margin-bottom: 4px;
+        min-height: 0px;
+        MAX-HEIGHT: 40PX;
+    }
+
+    .navbar-nav > li > a {
+        padding-top: 10px;
+    }
+
+    #nav_div ul > li > span {
+        color: blue;
+    }
+
+    #nav_div ul > li {
+        list-style: none;
+        float: left;
+        margin-left: 10px;
+    }
+
+    #nav_div ul {
+        height: 20px;
+    }
+
+    #nav_div ul:hover {
+        background: gainsboro;
+    }
+
+    nav_div #nav_div ul > li > span {
+        font-family: "微软雅黑";
+        color: blue;
+        width: 72px;
+    }
+
+    #nav_div ul > li > a {
+        color: #666;
+    }
+
+    #nav_div ul > li > a:hover {
+        color: red;
+    }
+
+    .xie {
+        -webkit-transform: rotate(-3deg);
+        -moz-transform: rotate(-3deg);
+        -o-transform: rotate(-3deg);
+    }
+
+    li.hide1 {
+        display: block;
+    }
+
+    * {
+        font-family: "Microsoft YaHei", 微软雅黑, "MicrosoftJhengHei", 华文细黑, STHeiti, MingLiu
+    }</style>
+</head>
+<body>
+<div class="aw-container-wrap">
+    <div class="container">
+        <div class="row">
+            <div class="aw-content-wrap clearfix">
+                <div class=" aw-main-content" style="min-height:700px;max-height:2000px">
+                    <script>
+                        var showaban = true;
+                        var storageKey = "newtools20160519";
+                        if (window.localStorage.getItem(storageKey) == null) {
+                            $("#uitools").after('<span class="newFeatureTip">●</span>');
+
+                            $("#libcdn").before('<span class="newItem">●</span>');
+                            document.getElementById("libcdn").onmouseover = function () {
+                                window.localStorage.setItem(storageKey, "has");
+                                $(".newFeatureTip").text('');
+                            }
+
+                        }
+
+                    </script>
+                    <div style="clear:both"></div>
+                    <style>.a2016 {
+                        color: white;
+                        font-family: "Microsoft YaHei", 微软雅黑, "MicrosoftJhengHei", 华文细黑, STHeiti, MingLiu;
+                        text-align: center;
+                        background: red;
+                        border-radius: 2px;
+                    }</style>
+
+
+                    <style>#mainContent textarea {
+                        width: 100%;
+                        height: 150px;
+                    }
+
+                    #mainContent textarea, #mainContent input[type='text'] {
+                        border: 1px solid #ccc;
+                    }</style>
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <div class="media">
+                                <div class="media-body">
+                                    <h4 class="media-heading">在线正则表达式</h4>
+                                    <div id="desc1">
+                                        在线正则表达式
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="panel-body" id="mainContent">
+
+                            <div class="span8">
+                                <div class="topBar">
+                                    <textarea id="textSour" placeholder="在此输入待匹配文本"></textarea>
+                                </div>
+                                <div class="operateTB">
+                                    <form class="well form-inline">
+                                        <div class="input-group input-group-sm">
+                                            <span class="input-group-addon" id="basic-addon1">正则表达式</span>
+                                            <input type="text" style="width: 400px;" class="form-control"
+                                                   id="textPattern" placeholder="在此输入正则表达式">
+                                            <div class="input-group-btn">
+                                                <button type="button" class="btn btn-default dropdown-toggle"
+                                                        data-toggle="dropdown" aria-haspopup="true"
+                                                        aria-expanded="false">常用正则表达式<span class="caret"></span>
+                                                </button>
+                                                <ul class="dropdown-menu dropdown-menu-right" id="regexUl">
+                                                    <li><a href="javascript:;" title="[\u4e00-\u9fa5]">匹配中文字符</a>
+                                                    </li>
+                                                    <li><a href="javascript:;" title="[^\x00-\xff]">匹配双字节字符(包括汉字在内)</a>
+                                                    </li>
+                                                    <li><a href="javascript:;" title="\n\s*\r">匹配空白行</a>
+                                                    </li>
+                                                    <li><a href="javascript:;"
+                                                           title="[\w!#$%&amp;'*+/=?^_`{|}~-]+(?:\.[\w!#$%&amp;'*+/=?^_`{|}~-]+)*@(?:[\w](?:[\w-]*[\w])?\.)+[\w](?:[\w-]*[\w])?">匹配Email地址</a>
+                                                    </li>
+                                                    <li><a href="javascript:;" title="[a-zA-z]+://[^\s]*">匹配网址URL</a>
+                                                    </li>
+                                                    <li><a href="javascript:;"
+                                                           title="\d{3}-\d{8}|\d{4}-\{7,8}">匹配国内电话号码</a>
+                                                    </li>
+                                                    <li><a href="javascript:;" title="[1-9][0-9]{4,}">匹配腾讯QQ号</a>
+                                                    </li>
+                                                    <li><a href="javascript:;" title="[1-9]\d{5}(?!\d)">匹配中国邮政编码</a>
+                                                    </li>
+                                                    <li><a href="javascript:;"
+                                                           title="^(\d{6})(\d{4})(\d{2})(\d{2})(\d{3})([0-9]|X)$">匹配18位身份证号</a>
+                                                    </li>
+                                                    <li><a href="javascript:;"
+                                                           title="([0-9]{3}[1-9]|[0-9]{2}[1-9][0-9]{1}|[0-9]{1}[1-9][0-9]{2}|[1-9][0-9]{3})-(((0[13578]|1[02])-(0[1-9]|[12][0-9]|3[01]))|((0[469]|11)-(0[1-9]|[12][0-9]|30))|(02-(0[1-9]|[1][0-9]|2[0-8])))">匹配(年-月-日)格式日期</a>
+                                                    </li>
+                                                    <li><a href="javascript:;" title="^[1-9]\d*$">匹配正整数</a>
+                                                    </li>
+                                                    <li><a href="javascript:;" title="^-[1-9]\d*$">匹配负整数</a>
+                                                    </li>
+                                                    <li><a href="javascript:;" title="^-?[1-9]\d*$">匹配整数</a>
+                                                    </li>
+                                                    <li><a href="javascript:;" title="^[1-9]\d*|0$">匹配非负整数（正整数 + 0）</a>
+                                                    </li>
+                                                    <li><a href="javascript:;" title="^-[1-9]\d*|0$">匹配非正整数（负整数 + 0）</a>
+                                                    </li>
+                                                    <li><a href="javascript:;" title="^[1-9]\d*\.\d*|0\.\d*[1-9]\d*$">匹配正浮点数</a>
+                                                    </li>
+                                                    <li><a href="javascript:;" title="^-[1-9]\d*\.\d*|-0\.\d*[1-9]\d*$">匹配负浮点数</a>
+                                                    </li>
+                                                </ul>
+                                            </div>
+
+                                        </div>
+                                        <input type="checkbox" value="global" checked="checked" id="optionGlobal"
+                                               name="optionGlobl">全局搜索
+                                        <input type="checkbox" value="ignoreCase" id="optionIgnoreCase"
+                                               name="optionIgnoreCase">忽略大小写
+                                        <a onclick="return onMatch();" class="btn btn-primary btn-sm"><i
+                                                class="icon-chevron-down icon-white"></i>测试匹配</a>
+
+                                        <br><br>
+                                        <input type="text" style="width: 400px;" class="form-control"
+                                               id="subEx" placeholder="在此输入包含子表达式的结果（如“$0:[$1]”）">
+                                        <a onclick="return onMatch2();" class="btn btn-primary btn-sm"><i
+                                                class="icon-chevron-down icon-white"></i>测试匹配</a>
+                                    </form>
+                                </div>
+                                <div class="bottomBar">
+                                    <div class="title">匹配结果：</div>
+                                    <textarea readonly="readonly" id="textMatchResult"></textarea>
+                                </div>
+                            </div>
+
+                        </div>
+                        <input type="hidden" id="encode" value="1"/>
+                        <div class="panel-footer"></div>
+                    </div>
+                    <script language="javascript">
+                        $(document).ready(function () {
+                            $("#regexUl  a").click(function () {
+                                $("#textPattern").val($(this).attr("title"));
+                                onMatch();
+                            });
+                        });
+
+                        function setVisible(idElement, visible) {
+                            var obj = document.getElementById(idElement);
+                            obj.style.visibility = visible ? "visible" : "hidden";
+                        }
+                        function isValidFields() {
+                            var textSour = document.getElementById("textSour");
+                            if (null == textSour.value || textSour.value.length < 1) {
+                                textSour.focus();
+                                alert("请输入待匹配文本");
+                                return false;
+                            }
+                            var textPattern = document.getElementById("textPattern");
+                            if (null == textPattern.value || textPattern.value.length < 1) {
+                                textPattern.focus();
+                                alert("请输入正则表达式");
+                                return false;
+                            }
+                            return true;
+                        }
+                        function buildRegex() {
+                            var op = "";
+                            if (document.getElementById("optionGlobal").checked)op = "g";
+                            if (document.getElementById("optionIgnoreCase").checked)op = op + "i";
+                            return new RegExp(document.getElementById("textPattern").value, op);
+                        }
+                        function onMatch() {
+                            if (!isValidFields())
+                                return false;
+                            document.getElementById("textMatchResult").value = "";
+                            var regex = buildRegex();
+                            var result = document.getElementById("textSour").value.match(regex);
+                            if (null == result || 0 == result.length) {
+                                document.getElementById("textMatchResult").value = "（没有匹配）";
+                                return false;
+                            }
+                            if (document.getElementById("optionGlobal").checked) {
+                                var strResult = "共找到 " + result.length + " 处匹配：\r\n";
+                                for (var i = 0; i < result.length; ++i)strResult = strResult + result[i] + "\r\n";
+                                document.getElementById("textMatchResult").value = strResult;
+                            }
+                            else {
+                                document.getElementById("textMatchResult").value = "匹配位置：" + regex.lastIndex + "\r\n匹配结果：" + result[0];
+                            }
+                            return true;
+                        }
+                        function onMatch2() {
+                            if (!isValidFields())
+                                return false;
+                            document.getElementById("textMatchResult").value = "";
+                            var
+                                    regex = buildRegex(),
+                                    content = document.getElementById("textSour").value,
+
+                                    hasResult = false,
+                                    strResult = "",
+                                    subEx = document.getElementById("subEx").value
+                            ;
+
+                            var result;
+                            var count = 0;
+                            while ((result = regex.exec(content)) != null) {
+                                hasResult = true;
+                                count++;
+                                (function (result) {
+                                    strResult += subEx.replace(/\$(\d+)/g, function (match, p1) {
+                                                // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/replace#Specifying_a_function_as_a_parameter
+                                                return result[p1];
+                                            }) + "\r\n";
+                                }(result));
+                                if (!regex.global) { // 是global才可以使用while这种写法（会改变lastIndex的值并从lastIndex处开始检索）
+                                    break; // 不是global，只执行一次，否则会进入死循环
+                                }
+                            }
+                            strResult = "共找到 " + count + " 处匹配：\r\n" + strResult;
+                            if (!hasResult) {
+                                strResult = "（没有匹配）";
+                            }
+                            document.getElementById("textMatchResult").value = strResult;
+                            return true;
+                        }
+                        function onReplace() {
+                            var str = document.getElementById("textSour").value;
+                            var regex = buildRegex();
+                            document.getElementById("textReplaceResult").value = str.replace(regex, document.getElementById("textReplace").value);
+                        }
+                        function reset() {
+                            $("#textSour").val("");
+                            $("#textPattern").val("");
+                            $("#textMatchResult").val("");
+                            $("#textReplace").val("");
+                            $("#textReplaceResult").val("");
+                        }
+                    </script>
+                    <script type="text/javascript">
+                        function Empty() {
+                            document.getElementById('searchText').value = '';
+                            document.getElementById('inputText').value = '';
+                            document.getElementById('searchText').select();
+                        }
+
+                        function GetFocus() {
+                            document.getElementById('content').focus();
+                        }
+                    </script>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
