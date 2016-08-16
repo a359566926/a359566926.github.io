@@ -27,6 +27,21 @@
         return typeof(obj) == "object" && Object.prototype.toString.call(obj).toLowerCase() == "[object object]" && !obj.length;
     }
 
+    /**
+     * 驼峰命名法转下划线命名法
+     * @param propertyName
+     * @returns {XML|string|void}
+     */
+    function camelCaseToHyphenCase(propertyName) {
+        var result = propertyName.replace(/[A-Z]/g, function(match) {
+            return '_' + match.toLowerCase();
+        });
+        if (result.charAt(0) == '_') {
+            result = result.substr(1);
+        }
+        return result;
+    }
+
     function doParse() {
         var
                 conditions = document.getElementById("conditions").value,
@@ -47,6 +62,11 @@
         var result = conditions.replace(/:(.+?):/ig, function (match, p1) {
             // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/replace#Specifying_a_function_as_a_parameter
             return bindsJson[p1];
+        });
+
+        // "Dlp\Mewme\Models\PropertySearch" --> "mewme.t_property_search"
+        result = result.replace(/Dlp\\(.+?)\\Models\\(.+?)\b/ig, function (match, module, model) {
+            return camelCaseToHyphenCase(module) + '.t_' + camelCaseToHyphenCase(model);
         });
         document.getElementById("result").value = result;
     }
